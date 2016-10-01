@@ -51,11 +51,17 @@ public class Player : MonoBehaviour {
 			Rigidbody rigidbody = GetComponent<Rigidbody> ();
 			if (!(x < 0 && screenPos.x < 20) && isOnFloor) {//画面の左端にいなければ
 				rigidbody.AddForce (x * Vector3.right * Acceleration, ForceMode.VelocityChange);//移動
+
 			} else if(!(x < 0 && screenPos.x < 20) && !isOnFloor){
 				rigidbody.AddForce (x * Vector3.right * (Acceleration/10), ForceMode.VelocityChange);//移動
 			}
 			if (screenPos.x < 20) {
 				rigidbody.velocity = new Vector3 (0, rigidbody.velocity.y, 0);
+			}
+			if (Input.GetKeyUp (KeyCode.A) || Input.GetKeyUp (KeyCode.D)) {
+				FindObjectOfType<smokeSprite>().stopSmoke();
+			} else if(Input.GetKeyDown (KeyCode.A) || Input.GetKeyDown (KeyCode.D)){
+				FindObjectOfType<smokeSprite>().StartSmoke();
 			}
 
 			SpeedLimit (rigidbody);
