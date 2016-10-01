@@ -86,6 +86,7 @@
 'Assets/Script/Character.cs'
 'Assets/Script/Enemy.cs'
 'Assets/Script/GameManager.cs'
+'Assets/Script/Item.cs'
 'Assets/Script/Layer.cs'
 'Assets/Script/Player.cs'
 'Assets/Script/Scene.cs'
