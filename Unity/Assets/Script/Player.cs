@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
 	private float MaxSpeed = 10;
 	[SerializeField]
 	private float SpeedUpTime = 5;
+	[SerializeField]
+	private GameObject SpeedUpUi;
 	private bool isOnFloor = true;
 	private Coroutine WalkingCoroutine;
 	private Vector3 screenPos;
@@ -79,6 +81,8 @@ public class Player : MonoBehaviour {
 	}
 
 	public IEnumerator SpeedUp(float Multiplication){
+		GameObject ui = (GameObject)Instantiate (SpeedUpUi);
+		ui.transform.parent = transform;
 		MaxSpeed = MaxSpeed * Multiplication;
 		yield return new WaitForSeconds (SpeedUpTime);
 		MaxSpeed = MaxSpeed / Multiplication;

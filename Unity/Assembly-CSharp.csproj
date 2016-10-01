@@ -57,6 +57,7 @@
      <Compile Include="Assets\Script\SceneMove.cs" />
      <Compile Include="Assets\Script\StageGenerator.cs" />
      <Compile Include="Assets\Script\bullet.cs" />
+     <Compile Include="Assets\SpeedUpSprite.cs" />
      <Compile Include="Assets\Waves.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
