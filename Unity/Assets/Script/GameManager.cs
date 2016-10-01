@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 	[SerializeField]
@@ -9,22 +10,17 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
 	public Vector3 LimitTimeVector3;
 	public static bool isGameOver = false;
-	public static TimeSpan RestTime;
-
+	public static TimeSpan CourseTime;
+	[SerializeField]
+	private Image ClockHand;
+	private Coroutine TimerCoroutine;
 
 
 	private static DateTime StartTime;
 
 	// Use this for initialization
 	void Start () {
-		DontDestroyOnLoad (gameObject);
-		StartTime = DateTime.Now;
-		StartCoroutine(Timer());
-	}
-
-	// Update is called once per frame
-	void Update () {
-
+		StartCoroutine (Timer ());
 	}
 
 	/// <summary>
@@ -32,11 +28,14 @@ public class GameManager : MonoBehaviour {
 	/// </summary>
 	private IEnumerator Timer()
 	{
+		yield return new WaitForSeconds (0.1f);
+		StartTime = DateTime.Now;
 		Text Timetext = TimeText;
 		TimeSpan LimitTime = new TimeSpan((int)LimitTimeVector3.x, (int)LimitTimeVector3.y, (int)LimitTimeVector3.z);
 		while (!isGameOver)
 		{
-			//StartCoroutine(DisplayTime(Timetext, LimitTime));
+			StartCoroutine(DisplayTime(Timetext, LimitTime));
+
 			yield return null;
 		}
 	}
@@ -44,7 +43,7 @@ public class GameManager : MonoBehaviour {
 	/// <summary>
 	/// 残り時間をString型に変換
 	/// </summary>
-	public static string TimeCastToString(TimeSpan Time)
+	public string TimeCastToString(TimeSpan Time)
 	{
 		return Time.Minutes.ToString("D2") + ":" + Time.Seconds.ToString("D2");//timeString;
 	}
@@ -54,20 +53,21 @@ public class GameManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="Timetext">Timetext.</param>
 	/// <param name="limitTime">Limit time.</param>
-	private static IEnumerator DisplayTime(Text Timetext, TimeSpan limitTime)
+	private IEnumerator DisplayTime(Text Timetext, TimeSpan limitTime)
 	{
 		TimeCalculation(limitTime);
-		Timetext.text = TimeCastToString(RestTime);
+		//Timetext.text = TimeCastToString(RestTime);
 		yield return null;
 	}
 
 	/// <summary>
 	/// 残り時間を計算
 	/// </summary>
-	private static void TimeCalculation(TimeSpan limitTime)
+	private void TimeCalculation(TimeSpan limitTime)
 	{
 		TimeSpan elapsedTime = (TimeSpan)(DateTime.Now - StartTime);
-		RestTime = limitTime - elapsedTime;
+		CourseTime = elapsedTime;
+		ClockHand.transform.rotation = Quaternion.Euler (0, 0, (float)(CourseTime.TotalSeconds / limitTime.TotalSeconds) * -90);
 	}
 
 	private static void StopGame()
