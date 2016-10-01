@@ -8,6 +8,8 @@ public class Player : MonoBehaviour {
 	private float JumpPower = 1;
 	[SerializeField]
 	private SceneMove SceneMoveScript;
+	[SerializeField]
+	private float MaxSpeed = 10;
 	private bool isOnFloor = true;
 	private Coroutine WalkingCoroutine;
 	private Vector3 screenPos;
@@ -25,7 +27,7 @@ public class Player : MonoBehaviour {
 		if(col.gameObject.layer == (int)Layer.Floor){
 			isOnFloor = true;
 		} else if(col.gameObject.layer == (int)Layer.Gaul){
-			SceneMoveScript.enabled = true;
+			//SceneMoveScript.enabled = true;
 		}
 	}
 
@@ -41,15 +43,17 @@ public class Player : MonoBehaviour {
 		while (true) {
 			float x = Input.GetAxis ("Horizontal");
 			Rigidbody rigidbody = GetComponent<Rigidbody> ();
-			if (!(x < 0 && screenPos.x < 20)) {//画面の左端にいなければ
+			if (!(x < 0 && screenPos.x < 20) && isOnFloor) {//画面の左端にいなければ
 				rigidbody.AddForce (x * Vector3.right * Acceleration, ForceMode.VelocityChange);//移動
-			} else {
-				rigidbody.velocity = Vector3.zero;
+			} else if(!(x < 0 && screenPos.x < 20) && !isOnFloor){
+				rigidbody.AddForce (x * Vector3.right * (Acceleration/10), ForceMode.VelocityChange);//移動
+			}
+			if (screenPos.x < 20) {
+				rigidbody.velocity = new Vector3 (0, rigidbody.velocity.y, 0);
 			}
 
-			if (x > 0 && screenPos.x > Screen.width / 3) {//画面の左半分半ばに入ればカメラが付いていく。
-				FindObjectOfType<CameraFocus> ().MoveToFocusTarget ();
-			}
+			SpeedLimit (rigidbody);
+			CameraLockAtMe (x);
 			yield return null;
 		}
 	}
@@ -64,8 +68,15 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void StopWalking()
-	{
-		StopCoroutine(WalkingCoroutine);
+	private void SpeedLimit(Rigidbody rigidbody){
+		if(Mathf.Abs(rigidbody.velocity.x) > MaxSpeed){
+			rigidbody.velocity = new Vector3(MaxSpeed * (Mathf.Abs (rigidbody.velocity.x) / rigidbody.velocity.x),rigidbody.velocity.y,rigidbody.velocity.z);
+		}
+	}
+
+	private void CameraLockAtMe(float x){
+		if (x >= 0 && screenPos.x > Screen.width / 3) {//画面の左半分半ばに入ればカメラが付いていく。
+			StartCoroutine(FindObjectOfType<CameraFocus> ().MoveToFocusTarget ());
+		}
 	}
 }
