@@ -45,12 +45,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Item.cs" />
      <Compile Include="Assets\Script\Attacker.cs" />
      <Compile Include="Assets\Script\CameraFocus.cs" />
      <Compile Include="Assets\Script\Character.cs" />
      <Compile Include="Assets\Script\Enemy.cs" />
      <Compile Include="Assets\Script\GameManager.cs" />
+     <Compile Include="Assets\Script\Item.cs" />
      <Compile Include="Assets\Script\Layer.cs" />
      <Compile Include="Assets\Script\Player.cs" />
      <Compile Include="Assets\Script\Scene.cs" />
