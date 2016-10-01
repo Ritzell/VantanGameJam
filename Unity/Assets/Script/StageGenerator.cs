@@ -26,7 +26,8 @@ public class StageGenerator : MonoBehaviour {
 				nowWave++;
 				completeFloor = player.floorob;
 				Debug.Log (Waves.Length + " and " + WaveNumber [nowWave]);
-				Instantiate (Waves [WaveNumber [nowWave]], new Vector3 (completeFloor.transform.position.x + 35, completeFloor.transform.position.y+1, 0), Quaternion.identity);
+
+				Instantiate (Waves [WaveNumber [nowWave]], new Vector3 (player.floorob.transform.position.x + 50, player.floorob.transform.position.y, 0), Quaternion.identity);
 			}
 			yield return null;
 		}
