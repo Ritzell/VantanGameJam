@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 sceneSetups:
 <<<<<<< HEAD
 - path: Assets/Wave/WaveA.unity
@@ -10,3 +11,6 @@ sceneSetups:
 >>>>>>> 0f309b60cb899cef0bb5ae3f1d94c71d82750274
   isLoaded: 1
   isActive: 1
+=======
+sceneSetups: []
+>>>>>>> 3b8c7a3b505ebea5d3c14cd9aa1b2f9fa3b09f03
