@@ -73,10 +73,13 @@ public class Player : MonoBehaviour {
 			rigidbody.velocity = new Vector3(MaxSpeed * (Mathf.Abs (rigidbody.velocity.x) / rigidbody.velocity.x),rigidbody.velocity.y,rigidbody.velocity.z);
 		}
 	}
-
 	private void CameraLockAtMe(float x){
+		//Debug.Log (x >= 0 && screenPos.x > Screen.width / 3);
 		if (x >= 0 && screenPos.x > Screen.width / 3) {//画面の左半分半ばに入ればカメラが付いていく。
-			StartCoroutine(FindObjectOfType<CameraFocus> ().MoveToFocusTarget ());
+			CameraFocus.isStop = false;
+			StartCoroutine (FindObjectOfType<CameraFocus> ().MoveToFocusTarget ());
+		} else {
+			CameraFocus.isStop = true;
 		}
 	}
 }
