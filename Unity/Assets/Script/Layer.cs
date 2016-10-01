@@ -11,5 +11,6 @@ public enum Layer{
 	null2,
 	null3,
 	Player,
-	Floor
+	Floor,
+	Gaul
 }

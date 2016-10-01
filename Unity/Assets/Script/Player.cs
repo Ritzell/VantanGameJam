@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMove : MonoBehaviour {
+public class Player : MonoBehaviour {
 	[SerializeField]
 	private float Acceleration = 1;
 	[SerializeField]
 	private float JumpPower = 1;
-
+	[SerializeField]
+	private SceneMove SceneMoveScript;
 	private bool isOnFloor = true;
 	private Coroutine WalkingCoroutine;
 	private Vector3 screenPos;
@@ -23,6 +24,8 @@ public class PlayerMove : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 		if(col.gameObject.layer == (int)Layer.Floor){
 			isOnFloor = true;
+		} else if(col.gameObject.layer == (int)Layer.Gaul){
+			SceneMoveScript.enabled = true;
 		}
 	}
 
