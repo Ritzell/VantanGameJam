@@ -75,6 +75,7 @@
     <Compile Include="Assets\Script\SceneMove.cs" />
     <Compile Include="Assets\Script\StageGenerator.cs" />
     <Compile Include="Assets\Script\bullet.cs" />
+    <Compile Include="Assets\SpeedUpSprite.cs" />
     <Compile Include="Assets\Waves.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
