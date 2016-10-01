@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/WaveG.unity
+=======
+- path: Assets/WaveB.unity
+>>>>>>> 77f9c436b0f500e8fcd50a7c5889b006326f82c1
   isLoaded: 1
   isActive: 1
