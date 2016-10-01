@@ -9,7 +9,10 @@ public class Player : MonoBehaviour {
 	[SerializeField]
 	private SceneMove SceneMoveScript;
 	[SerializeField]
-	private float MaxSpeed = 10;
+	public float MaxSpeed = 10;
+	[SerializeField]
+	private float SpeedUpTime = 5;
+
 	private bool isOnFloor = true;
 	private Coroutine WalkingCoroutine;
 	private Vector3 screenPos;
@@ -21,6 +24,7 @@ public class Player : MonoBehaviour {
 
 	void Update(){
 		screenPos = Camera.main.WorldToScreenPoint (transform.position);
+		Debug.Log (MaxSpeed);
 	}
 
 	void OnCollisionEnter(Collision col){
@@ -44,6 +48,11 @@ public class Player : MonoBehaviour {
 			float x = Input.GetAxis ("Horizontal");
 			Rigidbody rigidbody = GetComponent<Rigidbody> ();
 			if (!(x < 0 && screenPos.x < 20) && isOnFloor) {//画面の左端にいなければ
+				if (Mathf.Sign (x) == Mathf.Sign (rigidbody.velocity.x)) {
+					rigidbody.mass = 1;
+				} else {
+					rigidbody.mass = 10;
+				}
 				rigidbody.AddForce (x * Vector3.right * Acceleration, ForceMode.VelocityChange);//移動
 			} else if(!(x < 0 && screenPos.x < 20) && !isOnFloor){
 				rigidbody.AddForce (x * Vector3.right * (Acceleration/10), ForceMode.VelocityChange);//移動
@@ -78,5 +87,11 @@ public class Player : MonoBehaviour {
 		if (x >= 0 && screenPos.x > Screen.width / 3) {//画面の左半分半ばに入ればカメラが付いていく。
 			StartCoroutine(FindObjectOfType<CameraFocus> ().MoveToFocusTarget ());
 		}
+	}
+
+	public IEnumerator SpeedUp(float multiplier){
+		MaxSpeed = MaxSpeed * multiplier;
+		yield return new WaitForSeconds (SpeedUpTime);
+		MaxSpeed = MaxSpeed / multiplier;
 	}
 }
