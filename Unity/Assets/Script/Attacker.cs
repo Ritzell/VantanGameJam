@@ -30,13 +30,5 @@ public class Attacker : MonoBehaviour {
 		{
 			Destroy(gameObject);
 		}
-//		if (col.gameObject.GetComponent<Character>())
-//		{
-//			col.gameObject.SendMessage("ApplyDamage", Power);
-//			if (isDestroy)
-//			{
-//				Destroy(gameObject);
-//			}
-//		}
 	}
 }
