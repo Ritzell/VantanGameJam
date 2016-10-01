@@ -13,7 +13,7 @@ public class Attacker : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter(Collider col)
+	void OnCollisionEnter(Collision col)
 	{
 
 		foreach(int layerNumber in AttackTargetLayerNumber)
@@ -29,10 +29,12 @@ public class Attacker : MonoBehaviour {
 		if (col.gameObject.GetComponent<Character>())
 		{
 			col.gameObject.SendMessage("ApplyDamage", Power);
-			if (isDestroy)
-			{
-				Destroy(gameObject);
-			}
+			
 		}
-	}
+        Debug.Log("des");
+        if (isDestroy)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
