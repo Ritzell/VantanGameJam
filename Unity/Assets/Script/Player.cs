@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 	private bool isOnFloor = true;
 	private Coroutine WalkingCoroutine;
 	private Vector3 screenPos;
+	public GameObject floorob;
 	// Use this for initialization
 	void Start() {
 		StartCoroutine(Walking());
@@ -28,8 +29,9 @@ public class Player : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 		if(col.gameObject.layer == (int)Layer.Floor){
 			isOnFloor = true;
+			floorob = col.gameObject;
 		} else if(col.gameObject.layer == (int)Layer.Gaul){
-			//SceneMoveScript.enabled = true;
+			SceneMoveScript.enabled = true;
 		}
 	}
 
